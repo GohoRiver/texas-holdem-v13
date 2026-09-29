@@ -1699,15 +1699,15 @@ body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="bottom"] 
   transform: translate(-50%, 6px) !important;
 }
 
-/* ★ 自己：放到自己座位的右上方较远的位置（桌面右侧空白区） */
+/* ★ 自己：筹码堆放到座位正上方（屏幕底部中间玩家 UI 的顶部） */
 body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="self"] .chip-stack-wrap,
 body.is-mobile.orientation-landscape #gameScreen .seat.me .chip-stack-wrap{
-  left: 100% !important;
+  left: 50% !important;
   right: auto !important;
-  top: 50% !important;
-  bottom: auto !important;
-  /* 从自己座位右侧再往右偏移 100px、往上 30px */
-  transform: translate(100px, -80%) !important;
+  bottom: 100% !important;
+  top: auto !important;
+  /* 座位上方 6px 处居中 */
+  transform: translate(-50%, -6px) !important;
 }
 
 /* ——— 筹码列 & 筹码片 ——— */
