@@ -2355,6 +2355,20 @@ function render(){
     }
     seat.style.left = pos.x + "%";
     seat.style.top = pos.y + "%";
+        /* ★ 手机横屏：计算筹码堆应该浮在座位的哪一侧 */
+    let chipSide = 'right';
+    if(i === myIndex()){
+      chipSide = 'self';        /* 自己特殊处理：固定放右上 */
+    } else if(pos.x < 45){
+      chipSide = 'left';        /* 左侧座位 → 筹码放左侧 */
+    } else if(pos.x > 55){
+      chipSide = 'right';       /* 右侧座位 → 筹码放右侧 */
+    } else if(pos.y < 50){
+      chipSide = 'top';         /* 中上座位 → 筹码放上方 */
+    } else {
+      chipSide = 'bottom';      /* 中下座位 → 筹码放下方 */
+    }
+    seat.setAttribute('data-chip-side', chipSide);
     seat.classList.toggle("folded", !!p.folded || p.seated === false);
     seat.classList.toggle("reveal", !!p.revealCards);
     seat.classList.toggle("empty", p.seated === false);
