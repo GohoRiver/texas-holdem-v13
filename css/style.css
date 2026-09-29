@@ -1630,57 +1630,118 @@ body.is-mobile.orientation-landscape.game-active .topbar{
    ==================================================================== */
 
 /* 座位允许溢出（原本可能 overflow:hidden） */
+/* ====================================================================
+   ★ 手机横屏：筹码堆浮在座位外侧空白处（不遮挡座位内容）
+   ==================================================================== */
+
+/* 座位允许溢出 */
 body.is-mobile.orientation-landscape #gameScreen .seat{
   overflow: visible !important;
 }
 
-/* 筹码堆：绝对定位到座位右上角外侧，做成小徽章 */
+/* 筹码堆基础样式：做成深色小徽章 */
 body.is-mobile.orientation-landscape #gameScreen .seat .chip-stack-wrap{
   position: absolute !important;
-  top: -10px !important;
-  right: -10px !important;
   display: flex !important;
   flex-direction: row !important;
   align-items: flex-end !important;
   justify-content: center !important;
-  gap: 1px !important;
+  gap: 2px !important;
   margin: 0 !important;
-  padding: 2px 4px 3px 4px !important;
+  padding: 3px 5px 5px 5px !important;
   background: rgba(0,0,0,.92) !important;
-  border: 1px solid rgba(251,191,36,.6) !important;
+  border: 1px solid rgba(251,191,36,.55) !important;
   border-radius: 8px !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,.85), 0 0 6px rgba(251,191,36,.3) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.9), 0 0 6px rgba(251,191,36,.25) !important;
   z-index: 8 !important;
   min-height: auto !important;
-  max-height: 26px !important;
-  max-width: 70px !important;
+  max-width: 90px !important;
   pointer-events: none !important;
   box-sizing: border-box !important;
+  white-space: nowrap !important;
 }
 
-/* 单列筹码：竖直叠，每列 6px 宽 */
+/* ——— 根据 data-chip-side 定位到座位外侧 ——— */
+
+/* 右侧：座位右边 6px */
+body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="right"] .chip-stack-wrap{
+  left: 100% !important;
+  right: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translate(6px, -50%) !important;
+}
+
+/* 左侧：座位左边 6px */
+body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="left"] .chip-stack-wrap{
+  right: 100% !important;
+  left: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translate(-6px, -50%) !important;
+}
+
+/* 上方：座位上方 6px */
+body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="top"] .chip-stack-wrap{
+  bottom: 100% !important;
+  top: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translate(-50%, -6px) !important;
+}
+
+/* 下方：座位下方 6px */
+body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="bottom"] .chip-stack-wrap{
+  top: 100% !important;
+  bottom: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translate(-50%, 6px) !important;
+}
+
+/* ★ 自己：放到自己座位的右上方较远的位置（桌面右侧空白区） */
+body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="self"] .chip-stack-wrap,
+body.is-mobile.orientation-landscape #gameScreen .seat.me .chip-stack-wrap{
+  left: 100% !important;
+  right: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  /* 从自己座位右侧再往右偏移 100px、往上 30px */
+  transform: translate(100px, -80%) !important;
+}
+
+/* ——— 筹码列 & 筹码片 ——— */
+
+/* 每一列（同面额堆叠） */
 body.is-mobile.orientation-landscape #gameScreen .seat .chip-column{
-  width: 6px !important;
+  width: 9px !important;
   display: flex !important;
   flex-direction: column-reverse !important;
   align-items: center !important;
 }
 
-/* 单个筹码片：6px × 2px */
+/* 单个筹码片：9×3 */
 body.is-mobile.orientation-landscape #gameScreen .seat .chip-piece{
-  width: 6px !important;
-  height: 2px !important;
+  width: 9px !important;
+  height: 3px !important;
   margin-top: -0.5px !important;
   border-width: 0.5px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0.5px 1px rgba(0,0,0,.6) !important;
 }
 
-/* 面值标签：徽章内部底部，很小 */
+/* 面值标签：徽章底部，很小 */
 body.is-mobile.orientation-landscape #gameScreen .seat .chip-label{
   font-size: 6px !important;
-  bottom: -7px !important;
+  bottom: -8px !important;
   color: #fbbf24 !important;
   letter-spacing: -0.3px !important;
   text-shadow: 0 0 2px #000 !important;
+}
+
+/* 空的筹码堆不显示 */
+body.is-mobile.orientation-landscape #gameScreen .seat .chip-stack-wrap.empty{
+  display: none !important;
 }
 
 /* 徽章空的时候不显示 */
