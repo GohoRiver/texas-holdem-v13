@@ -1699,15 +1699,19 @@ body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="bottom"] 
   transform: translate(-50%, 6px) !important;
 }
 
-/* ★ 自己：筹码堆放到座位正上方（屏幕底部中间玩家 UI 的顶部） */
+/* ★ 自己：筹码堆放到座位正上方（三重保险，无论 JS 是否更新都能生效） */
+body.is-mobile.orientation-landscape #gameScreen .seat.me .chip-stack-wrap,
 body.is-mobile.orientation-landscape #gameScreen .seat[data-chip-side="self"] .chip-stack-wrap,
-body.is-mobile.orientation-landscape #gameScreen .seat.me .chip-stack-wrap{
+body.is-mobile.orientation-landscape #gameScreen .seat[data-pid="0"] .chip-stack-wrap{
+  position: absolute !important;
   left: 50% !important;
   right: auto !important;
-  bottom: 100% !important;
   top: auto !important;
-  /* 座位上方 6px 处居中 */
-  transform: translate(-50%, -6px) !important;
+  bottom: calc(100% + 8px) !important;
+  transform: translateX(-50%) !important;
+  margin: 0 !important;
+  display: flex !important;
+  z-index: 12 !important;
 }
 
 /* ——— 筹码列 & 筹码片 ——— */
